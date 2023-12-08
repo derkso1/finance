@@ -39,7 +39,7 @@ def main():
     c1.write("   ")
     c1.subheader("Showcase stock Performance :popcorn:")
     if c1.button("Pick a Stock"):
-        switch_page("Stock Screener 🍿")
+        switch_page("Stock Forecast 💰")
     # Perform actions to directly go to the stock page
 
     # col2.image(image, use_column_width=False, output_format="PNG", width=100)
@@ -51,7 +51,7 @@ def main():
 
     c3.subheader("Explore stock Opportunities :boom:")
     if c3.button("Stock Screener"):
-        switch_page("Stock Forecast 💰")
+        switch_page("Stock Screener 🍿")
     # Perform actions to directly go to the stock page
 
     #st.divider()

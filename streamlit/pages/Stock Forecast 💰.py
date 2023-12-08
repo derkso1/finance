@@ -136,9 +136,9 @@ if st.button("Submit") and terms_and_conditions:
     delta_value =  (amount_invest * (1 + act_percent/100)) - amount_invest
 
     col3, col4, col5 = st.columns(3)
-    col3.metric("Actual stock price Q4'23", '{0:.2f}$'.format(act_value), '{0:.2f}%'.format(act_percent))
-    col4.metric("Predicted stock price Q4'23", '{0:.2f}$'.format(pred_value), '{0:.2f}%'.format(pred_percent))
-    col5.metric("Profit/loss from the investment ", '{0:.2f}$'.format(delta_value), '{0:.2f}%'.format(act_percent))
+    col3.metric("Actual stock price Q4'23", '${0:.2f}'.format(act_value), '{0:.2f}%'.format(act_percent))
+    col4.metric("Predicted stock price Q4'23", '${0:.2f}'.format(pred_value), '{0:.2f}%'.format(pred_percent))
+    col5.metric("Profit/loss from the investment ", '${0:.2f}'.format(delta_value), '{0:.2f}%'.format(act_percent))
 
     st.markdown("***")
 

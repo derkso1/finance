@@ -144,9 +144,9 @@ def model_recommend(size=None, sector=None, risk='medium', df_all=get_data()): #
     if risk == 'high':
         df_predict = df_predict.head(5)[['symbol', 'predicted_price_change', 'volatility']] # Giving top 5 stocks based purely on return
     if risk == 'medium':
-        df_predict = df_predict[df_predict['volatility'].between(-1, 1)].sort_values(by=['predicted_price_change', 'volatility'], ascending=[False, True]).head(5)[['symbol', 'predicted_price_change', 'volatility']]
+        df_predict = df_predict[df_predict['volatility'].between(-0.4, 0.4)].sort_values(by=['predicted_price_change', 'volatility'], ascending=[False, True]).head(5)[['symbol', 'predicted_price_change', 'volatility']]
     if risk == 'low':
-        df_predict = df_predict[df_predict['volatility'].between(-0.5, 0.5)].sort_values(by=['predicted_price_change', 'volatility'], ascending=[False, True]).head(5)[['symbol', 'predicted_price_change', 'volatility']]
+        df_predict = df_predict[df_predict['volatility'].between(-0.2, 0.2)].sort_values(by=['predicted_price_change', 'volatility'], ascending=[False, True]).head(5)[['symbol', 'predicted_price_change', 'volatility']]
 
     df_information = get_information()
 
