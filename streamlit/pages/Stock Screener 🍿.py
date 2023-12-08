@@ -85,34 +85,6 @@ st.info(f"Selected Sector: {selected_sector}")
 terms_and_conditions = st.checkbox("I agree to the Terms and Conditions - 100 days is not a licensed financial service provider and will not be liable for any losses incurred.")
 #Getting data
 
-def model_chosen(size, sector,df): # Paramters here need be strings (e.g. 'small', 'indutrials')
-    # This will split dataset by chosen sector (sector will be matched by chosen drop down list of sector options)
-    sector_input = sector # This should be inputted as a string
-    sector_input = selected_sector.title() ## This will capitalise first letter of each word to align with sector column names
-    df_by_sector = df[df[f'sector_{sector_input}'] == 1]
-    df_by_sector.head()
-    # This will split this previous dataset by chosen size (size will be matched by chosen drop down list of size options)
-    size_input = size # This should be interpreted as a string
-    size_input = size_input.lower() ## This will make letters of each word lowercase to align with size column names
-    df_by_both = df_by_sector[df_by_sector[f'size_{size_input}'] == 1]
-    df_by_both.head()
-     # Create column for average quarterly return in new dataframe
-    df_return = df_by_both.groupby('symbol').mean()[['close_percent']].reset_index()
-    df_return.sort_values(by=['close_percent'], inplace=True, ascending=False)
-    df_return.rename(columns={'close_percent':'avg_quarterly_return'}, inplace=True)
-    # Create column for average volatility in new dataframe
-    df_volatility = df_by_both.groupby('symbol').std()[['close_percent']].reset_index()
-    df_volatility.sort_values(by=['close_percent'], inplace=True, ascending=False)
-    df_volatility.rename(columns={'close_percent':'volatility'}, inplace=True)
-    # Merge these into one
-    df_merged = pd.merge(df_return, df_volatility[['symbol', 'volatility']], how='left', left_on=['symbol'], right_on=['symbol'])
-    if strategy == 'high':
-        return df_merged.sort_values(by=['avg_quarterly_return'], ascending=False).head(5)[['symbol', 'avg_quarterly_return']] # Giving top 5 stocks based purely on return
-    if strategy == 'medium':
-        return df_merged[df_merged['volatility'] < 0.4].sort_values(by=['avg_quarterly_return'], ascending=False).head(5)
-    if strategy == 'low':
-        return df_merged[df_merged['volatility'] < 0.2].sort_values(by=['avg_quarterly_return'], ascending=False).head(5)
-
 
 def model_recommend(size=None, sector=None, risk='medium', df_all=get_data()): # Paramters here need be strings (e.g. 'small', 'indsutrials')
     df_filtered = df_all
@@ -127,7 +99,7 @@ def model_recommend(size=None, sector=None, risk='medium', df_all=get_data()): #
         sector = sector_dict[sector]
         df_filtered = df_filtered[df_filtered[sector] == 1]
 
-    predict_timeframe = '2023Q3 vs 2023Q2'
+    predict_timeframe = "2023Q3 vs 2023Q2"
     df_predict = df_filtered[df_filtered['time_frame'] == predict_timeframe]
 
     # Create column for average volatility in new dataframe
